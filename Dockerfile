@@ -6,7 +6,7 @@ FROM node:8.1
 # docker run -d -p 8080:8080 -v /etc/letsencrypt/:/etc/letsencrypt/ -v /data/:/core/nimiq/core/dist/database --name "nimiq" nimiq
 
 
-ENV RELEASE="https://github.com/nimiq-network/core/archive/master.tar.gz"
+ENV RELEASE="https://github.com/agriessel/core/archive/dockerseed.tar.gz"
 ENV DOMAIN="node.nimiq.io"
 ENV SEED="xxxxx"
 ENV KEY="/etc/letsencrypt/live/nimiq.io/privkey.pem"
@@ -17,7 +17,7 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y python build-essential
 
 RUN wget ${RELEASE} && tar -xvzf ./master.tar.gz
-RUN cd /core-master && npm install && npm run build
+RUN cd /core-dockerseed && npm install && npm run build
 
 EXPOSE ${PORT}
-ENTRYPOINT node /core-master/clients/nodejs/index.js --host ${DOMAIN} --port ${PORT} --key ${KEY} --cert ${CRT} --wallet-seed=${SEED} --miner
+ENTRYPOINT node /core-dockerseed/clients/nodejs/index.js --host ${DOMAIN} --port ${PORT} --key ${KEY} --cert ${CRT} --wallet-seed=${SEED} --miner

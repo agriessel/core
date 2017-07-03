@@ -2,8 +2,8 @@ FROM node:8.1
 # Usage:
 # Use existing host SSL keys
 # docker run -d -p 8080:8080 -v /etc/letsencrypt/:/etc/letsencrypt/ --name "nimiq" nimiq
-# Mount volume or data until dynamic private key can be used
-# docker run -d -p 8080:8080 -v /etc/letsencrypt/:/etc/letsencrypt/ -v /data/:/core/nimiq/core/dist/database --name "nimiq" nimiq
+# Override Docker environment variables, you will need to ensure you mount a volume where the key and crt files are located on the local host
+# docker run -d -p 8080:8080 -e "DOMAIN=example.com" -e "SEED=seed" -e "KEY=/path/to/keyfile" -e "CRT=/path/to/crtfile" -v /etc/letsencrypt/:/etc/letsencrypt/ --name "nimiq" nimiq
 
 
 ENV RELEASE="https://github.com/agriessel/core/archive/dockerseed.tar.gz"
